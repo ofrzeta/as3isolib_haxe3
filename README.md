@@ -2,7 +2,7 @@
 
 as3isolib - An open-source haxe-port of Isometric Library as3isolib developed to assist 
 in creating isometrically projected content (such as games and graphics) 
-targeted for the Flash player platform. Not compatible with Haxe 3 and OpenFL.
+targeted for the Flash player platform. Now compatible with Haxe 3 and OpenFL.
 
 ## as3isolib_haxe (r328)
 
