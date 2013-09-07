@@ -19,15 +19,15 @@ using as3isolib.ArrayUtil;
  * IsoContainer is the base class that any isometric object must extend in order to be shown in the display list.
  * Developers should not instantiate this class directly but rather extend it.
  */
-class IsoContainer extends Node, implements IIsoContainer
+class IsoContainer extends Node implements IIsoContainer
 {
-	public var includeInLayout(getIncludeInLayout, setIncludeInLayout) : Bool;
-	public var displayListChildren(getDisplayListChildren, never) : Array<IIsoContainer>;
-	public var isAddedToDisplay(getIsAddedToDisplay, never) : Bool;
-	public var isAddedToStage(getIsAddedToStage, never) : Bool;
-	public var isInvalidated(getIsInvalidated, never) : Bool;
-	public var depth(getDepth, never) : Int;
-	public var container(getContainer, never) : Sprite;
+	public var includeInLayout(get_includeInLayout, set_includeInLayout) : Bool;
+	public var displayListChildren(get_displayListChildren, never) : Array<IIsoContainer>;
+	public var isAddedToDisplay(get_isAddedToDisplay, never) : Bool;
+	public var isAddedToStage(get_isAddedToStage, never) : Bool;
+	public var isInvalidated(get_isInvalidated, never) : Bool;
+	public var depth(get_depth, never) : Int;
+	public var container(get_container, never) : Sprite;
 	var bIncludeInLayout : Bool;
 	var includeInLayoutChanged : Bool;
 
@@ -43,12 +43,12 @@ class IsoContainer extends Node, implements IIsoContainer
 		proxyTarget = mainContainer;
 	}
 
-	public function getIncludeInLayout() : Bool
+	public function get_includeInLayout() : Bool
 	{
 		return bIncludeInLayout;
 	}
 
-	public function setIncludeInLayout(value : Bool) : Bool
+	public function set_includeInLayout(value : Bool) : Bool
 	{
 		if(bIncludeInLayout != value) 
 		{
@@ -63,7 +63,7 @@ class IsoContainer extends Node, implements IIsoContainer
 	////////////////////////////////////////////////////////////////////////
 	var displayListChildrenArray : Array<IIsoContainer>;
 
-	public function getDisplayListChildren() : Array<IIsoContainer>
+	public function get_displayListChildren() : Array<IIsoContainer>
 	{
 		var temp : Array<IIsoContainer> = [];
 
@@ -108,7 +108,7 @@ class IsoContainer extends Node, implements IIsoContainer
 	//	SWAP
 	////////////////////////////////////////////////////////////////////////
 
-	override public function setChildIndex(child : INode, index : Int) : Void
+	override public function set_childIndex(child : INode, index : Int) : Void
 	{
 		if(!Std.is(child,IIsoContainer)) 
 			throw new Error("parameter child does not implement IContainer.");
@@ -118,7 +118,7 @@ class IsoContainer extends Node, implements IIsoContainer
 
 		else 
 		{
-			super.setChildIndex(child, index);
+			super.set_childIndex(child, index);
 			var c : IIsoContainer = cast child;
 			mainContainer.setChildIndex(c.container, index);
 		}
@@ -192,12 +192,12 @@ class IsoContainer extends Node, implements IIsoContainer
 	var bAddedToDisplayList : Bool;
 	var bAddedToStage : Bool;
 
-	public function getIsAddedToDisplay() : Bool
+	public function get_isAddedToDisplay() : Bool
 	{
 		return bAddedToDisplayList;
 	}
 
-	public function getIsAddedToStage() : Bool
+	public function get_isAddedToStage() : Bool
 	{
 		return bAddedToStage;
 	}
@@ -226,7 +226,7 @@ class IsoContainer extends Node, implements IIsoContainer
 	//	IS INVALIDATED
 	/////////////////////////////////////////////////////////////////
 	var bIsInvalidated : Bool;
-	public function getIsInvalidated() : Bool
+	public function get_isInvalidated() : Bool
 	{
 		return bIsInvalidated;
 	}
@@ -322,7 +322,7 @@ class IsoContainer extends Node, implements IIsoContainer
 	////////////////////////////////////////////////////////////////////////
 	var mainContainer : Sprite;
 
-	public function getDepth() : Int
+	public function get_depth() : Int
 	{
 		if(mainContainer.parent !=null)
 			return mainContainer.parent.getChildIndex(mainContainer);
@@ -330,7 +330,7 @@ class IsoContainer extends Node, implements IIsoContainer
 		return -1;
 	}
 
-	public function getContainer() : Sprite
+	public function get_container() : Sprite
 	{
 		return mainContainer;
 	}

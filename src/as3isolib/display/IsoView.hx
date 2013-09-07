@@ -21,36 +21,36 @@ import flash.errors.Error;
 
 using as3isolib.ArrayUtil;
 
-class IsoView extends Sprite, implements IIsoView
+class IsoView extends Sprite implements IIsoView
 {
-	public var currentPt(getCurrentPt, never) : Pt;
-	public var currentX(getCurrentX, setCurrentX) : Float;
-	public var currentY(getCurrentY, setCurrentY) : Float;
-	public var isInvalidated(getIsInvalidated, never) : Bool;
-	public var currentZoom(getCurrentZoom, setCurrentZoom) : Float;
-	public var viewRenderers(getViewRenderers, setViewRenderers) : Array<Dynamic>;
-	public var scenes(getScenes, never) : Array<IIsoScene>;
-	public var numScenes(getNumScenes, never) : Int;
-	public var size(getSize, never) : Point;
-	public var clipContent(getClipContent, setClipContent) : Bool;
-	public var rangeOfMotionTarget(getRangeOfMotionTarget, setRangeOfMotionTarget) : DisplayObject;
-	public var mainContainer(getMainContainer, never) : Sprite;
-	public var backgroundContainer(getBackgroundContainer, never) : Sprite;
-	public var foregroundContainer(getForegroundContainer, never) : Sprite;
-	public var showBorder(getShowBorder, setShowBorder) : Bool;
+	public var currentPt(get_currentPt, never) : Pt;
+	public var currentX(get_currentX, set_currentX) : Float;
+	public var currentY(get_currentY, set_currentY) : Float;
+	public var isInvalidated(get_isInvalidated, never) : Bool;
+	public var currentZoom(get_currentZoom, set_currentZoom) : Float;
+	public var viewRenderers(get_viewRenderers, set_viewRenderers) : Array<Dynamic>;
+	public var scenes(get_scenes, never) : Array<IIsoScene>;
+	public var numScenes(get_numScenes, never) : Int;
+	public var size(get_size, never) : Point;
+	public var clipContent(get_clipContent, set_clipContent) : Bool;
+	public var rangeOfMotionTarget(get_rangeOfMotionTarget, set_rangeOfMotionTarget) : DisplayObject;
+	public var mainContainer(get_mainContainer, never) : Sprite;
+	public var backgroundContainer(get_backgroundContainer, never) : Sprite;
+	public var foregroundContainer(get_foregroundContainer, never) : Sprite;
+	public var showBorder(get_showBorder, set_showBorder) : Bool;
 	public var usePreciseValues : Bool;
 	var targetScreenPt : Pt;
 	var currentScreenPt : Pt;
 
-	public function getCurrentPt() : Pt
+	public function get_currentPt() : Pt
 	{
 		return cast currentScreenPt.clone();
 	}
-	public function getCurrentX() : Float
+	public function get_currentX() : Float
 	{
 		return currentScreenPt.x;
 	}
-	public function setCurrentX(value : Float) : Float
+	public function set_currentX(value : Float) : Float
 	{
 		if(currentScreenPt.x != value) 
 		{
@@ -63,11 +63,11 @@ class IsoView extends Sprite, implements IIsoView
 		return value;
 	}
 
-	public function getCurrentY() : Float
+	public function get_currentY() : Float
 	{
 		return currentScreenPt.y;
 	}
-	public function setCurrentY(value : Float) : Float
+	public function set_currentY(value : Float) : Float
 	{
 		if(currentScreenPt.y != value) 
 		{
@@ -93,7 +93,7 @@ class IsoView extends Sprite, implements IIsoView
 		return globalToLocal(temp);
 	}
 	var bPositionInvalidated : Bool;
-	public function getIsInvalidated() : Bool
+	public function get_isInvalidated() : Bool
 	{
 		return bPositionInvalidated;
 	}
@@ -101,7 +101,7 @@ class IsoView extends Sprite, implements IIsoView
 	{
 		bPositionInvalidated = true;
 	}
-	public function getInvalidatedScenes() : Array<IIsoScene>
+	public function get_invalidatedScenes() : Array<IIsoScene>
 	{
 		var a : Array<IIsoScene> = [];
 		for(scene in scenesArray)
@@ -159,7 +159,7 @@ class IsoView extends Sprite, implements IIsoView
 		{
 			var ndx : Float = 0;
 			var ndy : Float = 0;
-			var rect : Rectangle = #if (flash || js) romTarget.getBounds(this) #else romTarget.nmeGetPixelBounds() #end; // todo nme needs a real getBounds()
+			var rect : Rectangle = romTarget.getBounds(this);
 			var isROMBigger : Bool = !romBoundsRect.containsRect(rect);
 			if(isROMBigger) 
 			{
@@ -219,11 +219,11 @@ class IsoView extends Sprite, implements IIsoView
 		bPositionInvalidated = true;
 		render();
 	}
-	public function getCurrentZoom() : Float
+	public function get_currentZoom() : Float
 	{
 		return zoomContainer.scaleX;
 	}
-	public function setCurrentZoom(value : Float) : Float
+	public function set_currentZoom(value : Float) : Float
 	{
 		zoomContainer.scaleX = zoomContainer.scaleY = value;
 		return value;
@@ -235,17 +235,17 @@ class IsoView extends Sprite, implements IIsoView
 	public function reset() : Void
 	{
 		zoomContainer.scaleX = zoomContainer.scaleY = 1;
-		setSize(_w, _h);
+		set_size(_w, _h);
 		mContainer.x = 0;
 		mContainer.y = 0;
 		currentScreenPt = new Pt();
 	}
 	var viewRendererFactories : Array<Dynamic>;
-	public function getViewRenderers() : Array<Dynamic>
+	public function get_viewRenderers() : Array<Dynamic>
 	{
 		return viewRendererFactories;
 	}
-	public function setViewRenderers(value : Array<Dynamic>) : Array<Dynamic>
+	public function set_viewRenderers(value : Array<Dynamic>) : Array<Dynamic>
 	{
 		if(value != null) 
 		{
@@ -263,11 +263,11 @@ class IsoView extends Sprite, implements IIsoView
 		return value;
 	}
 	var scenesArray : Array<IIsoScene>;
-	public function getScenes() : Array<IIsoScene>
+	public function get_scenes() : Array<IIsoScene>
 	{
 		return scenesArray;
 	}
-	public function getNumScenes() : Int
+	public function get_numScenes() : Int
 	{
 		return scenesArray.length;
 	}
@@ -294,7 +294,7 @@ class IsoView extends Sprite, implements IIsoView
 		}
 		return false;
 	}
-	public function getSceneByID(id : String) : IIsoScene
+	public function get_sceneByID(id : String) : IIsoScene
 	{
 		var scene : IIsoScene;
 		for(scene in scenesArray)
@@ -330,7 +330,7 @@ class IsoView extends Sprite, implements IIsoView
 
 	var _w : Float;
 	var _h : Float;
-	@:getter(width) function get_width() : Float {
+/*	@:getter(width) function get_width() : Float {
 		return _w;
 	}
 
@@ -338,22 +338,22 @@ class IsoView extends Sprite, implements IIsoView
 	{
 		return _h;
 	}
-
-	public function getWidth () : Float
+*/
+	override public function get_width () : Float
 	{
 		return _w;
 	}
 
-	public function getHeight () : Float
+	override public function get_height () : Float
 	{
 		return _h;
 	}
 
-	public function getSize() : Point
+	public function get_size() : Point
 	{
 		return new Point(_w, _h);
 	}
-	public function setSize(w : Float, h : Float) : Void
+	public function set_size(w : Float, h : Float) : Void
 	{
 		_w = Math.round(w);
 		_h = Math.round(h);
@@ -364,11 +364,11 @@ class IsoView extends Sprite, implements IIsoView
 		drawBorder();
 	}
 	var _clipContent : Bool;
-	public function getClipContent() : Bool
+	public function get_clipContent() : Bool
 	{
 		return _clipContent;
 	}
-	public function setClipContent(value : Bool) : Bool
+	public function set_clipContent(value : Bool) : Bool
 	{
 		if(_clipContent != value) 
 		{
@@ -379,11 +379,11 @@ class IsoView extends Sprite, implements IIsoView
 	}
 	var romTarget : DisplayObject;
 	var romBoundsRect : Rectangle;
-	public function getRangeOfMotionTarget() : DisplayObject
+	public function get_rangeOfMotionTarget() : DisplayObject
 	{
 		return romTarget;
 	}
-	public function setRangeOfMotionTarget(value : DisplayObject) : DisplayObject
+	public function set_rangeOfMotionTarget(value : DisplayObject) : DisplayObject
 	{
 		romTarget = value;
 		limitRangeOfMotion = (romTarget != null) ? true : false;
@@ -392,12 +392,12 @@ class IsoView extends Sprite, implements IIsoView
 	public var limitRangeOfMotion : Bool;
 	var zoomContainer : Sprite;
 	var mContainer : Sprite;
-	public function getMainContainer() : Sprite
+	public function get_mainContainer() : Sprite
 	{
 		return mContainer;
 	}
 	var bgContainer : Sprite;
-	public function getBackgroundContainer() : Sprite
+	public function get_backgroundContainer() : Sprite
 	{
 		if(bgContainer == null) 
 		{
@@ -407,7 +407,7 @@ class IsoView extends Sprite, implements IIsoView
 		return bgContainer;
 	}
 	var fgContainer : Sprite;
-	public function getForegroundContainer() : Sprite
+	public function get_foregroundContainer() : Sprite
 	{
 		if(fgContainer == null) 
 		{
@@ -420,11 +420,11 @@ class IsoView extends Sprite, implements IIsoView
 	var maskShape : Shape;
 	var borderShape : Shape;
 	var _showBorder : Bool;
-	public function getShowBorder() : Bool
+	public function get_showBorder() : Bool
 	{
 		return _showBorder;
 	}
-	public function setShowBorder(value : Bool) : Bool
+	public function set_showBorder(value : Bool) : Bool
 	{
 		if(_showBorder != value) 
 		{
@@ -466,6 +466,6 @@ class IsoView extends Sprite, implements IIsoView
 		addChild(maskShape);
 		borderShape = new Shape();
 		addChild(borderShape);
-		setSize(400, 250);
+		set_size(400, 250);
 	}
 }

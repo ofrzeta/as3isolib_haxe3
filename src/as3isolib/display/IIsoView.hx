@@ -13,25 +13,25 @@ import flash.geom.Point;
 
 import as3isolib.display.scene.IIsoScene;
 
-interface IIsoView implements IEventDispatcher, implements IInvalidation
+interface IIsoView extends IEventDispatcher extends IInvalidation
 {
-	var scenes(getScenes, never) : Array<IIsoScene>;
-	var numScenes(getNumScenes, never) : Int;
-	var currentPt(getCurrentPt, never) : Pt;
-	var currentX(getCurrentX, setCurrentX) : Float;
-	var currentY(getCurrentY, setCurrentY) : Float;
-	var currentZoom(getCurrentZoom, setCurrentZoom) : Float;
+	var scenes(get_scenes, never) : Array<IIsoScene>;
+	var numScenes(get_numScenes, never) : Int;
+	var currentPt(get_currentPt, never) : Pt;
+	var currentX(get_currentX, set_currentX) : Float;
+	var currentY(get_currentY, set_currentY) : Float;
+	var currentZoom(get_currentZoom, set_currentZoom) : Float;
 	//var width(none, none) : Float;
 	//var height(none, none) : Float;
-	var mainContainer(getMainContainer, never) : Sprite;
+	var mainContainer(get_mainContainer, never) : Sprite;
 
-	function getScenes() : Array<IIsoScene>;
-	function getNumScenes() : Int;
-	function getCurrentPt() : Pt;
-	function getCurrentX() : Float;
-	function setCurrentX(value : Float) : Float;
-	function getCurrentY() : Float;
-	function setCurrentY(value : Float) : Float;
+	function get_scenes() : Array<IIsoScene>;
+	function get_numScenes() : Int;
+	function get_currentPt() : Pt;
+	function get_currentX() : Float;
+	function set_currentX(value : Float) : Float;
+	function get_currentY() : Float;
+	function set_currentY(value : Float) : Float;
 	function localToIso(localPt : Point) : Pt;
 	function isoToLocal(isoPt : Pt) : Point;
 	function centerOnPt(pt : Pt, isIsometric : Bool = true) : Void;
@@ -39,11 +39,11 @@ interface IIsoView implements IEventDispatcher, implements IInvalidation
 	function pan(px : Float, py : Float) : Void;
 	function panBy(xBy : Float, yBy : Float) : Void;
 	function panTo(xTo : Float, yTo : Float) : Void;
-	function getCurrentZoom() : Float;
+	function get_currentZoom() : Float;
 	function zoom(zFactor : Float) : Void;
 	function reset() : Void;
 	function render(recursive : Bool = false) : Void;
-	function getWidth() : Float;
-	function getHeight() : Float;
-	function getMainContainer() : Sprite;
+	function get_width() : Float;
+	function get_height() : Float;
+	function get_mainContainer() : Sprite;
 }

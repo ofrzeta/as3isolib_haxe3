@@ -14,16 +14,16 @@ import flash.errors.Error;
 
 class IsoSprite extends IsoDisplayObject
 {
-	public var sprites(getSprites, setSprites) : Array<Dynamic>;
-	public var actualSprites(getActualSprites, never) : Array<Dynamic>;
+	public var sprites(get_sprites, set_sprites) : Array<Dynamic>;
+	public var actualSprites(get_actualSprites, never) : Array<Dynamic>;
 	var spritesArray : Array<Dynamic>;
 
-	public function getSprites() : Array<Dynamic>
+	public function get_sprites() : Array<Dynamic>
 	{
 		return spritesArray;
 	}
 
-	public function setSprites(value : Array<Dynamic>) : Array<Dynamic>
+	public function set_sprites(value : Array<Dynamic>) : Array<Dynamic>
 	{
 		if(spritesArray != value) 
 		{
@@ -34,7 +34,7 @@ class IsoSprite extends IsoDisplayObject
 	}
 
 	var actualSpriteObjects : Array<Dynamic>;
-	public function getActualSprites() : Array<Dynamic>
+	public function get_actualSprites() : Array<Dynamic>
 	{
 		return actualSpriteObjects.slice(0);
 	}
@@ -50,7 +50,7 @@ class IsoSprite extends IsoDisplayObject
 		bSpritesInvalidated = true;
 	}
 
-	override public function getIsInvalidated() : Bool
+	override public function get_isInvalidated() : Bool
 	{
 		return (bPositionInvalidated || bSpritesInvalidated);
 	}

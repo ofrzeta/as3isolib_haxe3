@@ -127,12 +127,15 @@ class IsoDrawingUtil
 		target.renderAsOrphan = true;
 		target.render();
 		target.renderAsOrphan = oldOrphanValue;
-		var rect : Rectangle = #if (flash || js) target.container.getBounds(target.container) #else target.container.nmeGetPixelBounds() #end; // todo nme needs a real getBounds()
-#if neko
+		var rect : Rectangle = target.container.getBounds(target.container);
+/*#if neko
 		var fillColor = {a : 0, rgb: 0};
 #else
 		var fillColor = 0;
 #end
+*/
+		var fillColor = 0;
+
 		var bitmapdata : BitmapData = new BitmapData(Std.int(rect.width), Std.int(rect.height), true, fillColor);
 		bitmapdata.draw(target.container, new Matrix(1, 0, 0, 1, rect.x * -1, rect.y * -1));
 		return bitmapdata;

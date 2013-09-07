@@ -10,20 +10,20 @@ import flash.events.IEventDispatcher;
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 
-class EventDispatcherProxy implements IEventDispatcher, implements IEventDispatcherProxy
+class EventDispatcherProxy implements IEventDispatcher implements IEventDispatcherProxy
 {
-	public var proxyTarget(getProxyTarget, setProxyTarget) : IEventDispatcher;
-	public var proxy(getProxy, setProxy) : IEventDispatcher;
-	public var interceptedEventTypes(getInterceptedEventTypes, setInterceptedEventTypes) : Array<String>;
+	public var proxyTarget(get_proxyTarget, set_proxyTarget) : IEventDispatcher;
+	public var proxy(get_proxy, set_proxy) : IEventDispatcher;
+	public var interceptedEventTypes(get_interceptedEventTypes, set_interceptedEventTypes) : Array<String>;
 	public var deleteQueueAfterUpdate : Bool;
 	var _proxyTarget : IEventDispatcher;
 
-	public function getProxyTarget() : IEventDispatcher
+	public function get_proxyTarget() : IEventDispatcher
 	{
 		return _proxyTarget;
 	}
 
-	public function setProxyTarget(value : IEventDispatcher) : IEventDispatcher
+	public function set_proxyTarget(value : IEventDispatcher) : IEventDispatcher
 	{
 		if(_proxyTarget != value) 
 		{
@@ -34,12 +34,12 @@ class EventDispatcherProxy implements IEventDispatcher, implements IEventDispatc
 	}
 
 	var _proxy : IEventDispatcher;
-	public function getProxy() : IEventDispatcher
+	public function get_proxy() : IEventDispatcher
 	{
 		return _proxy;
 	}
 
-	public function setProxy(target : IEventDispatcher) : IEventDispatcher
+	public function set_proxy(target : IEventDispatcher) : IEventDispatcher
 	{
 		if(_proxy != target) 
 		{
@@ -51,15 +51,15 @@ class EventDispatcherProxy implements IEventDispatcher, implements IEventDispatc
 
 	public function new()
 	{
-		listenerHashTable = new Hash();
-		interceptedEventHash = new Hash();
+		listenerHashTable = new Map();
+		interceptedEventHash = new Map();
 		deleteQueueAfterUpdate = true;
 		_proxyTargetListenerQueue = [];
 		proxy = this;
 		interceptedEventTypes = generateEventTypes();
 	}
 
-	var listenerHashTable : Hash<ListenerHash>;
+	var listenerHashTable : Map<String,ListenerHash>;
 	function setListenerHashProperty(type : String, listener : Dynamic->Void) : Void
 	{
 		var hash : ListenerHash;
@@ -81,7 +81,7 @@ class EventDispatcherProxy implements IEventDispatcher, implements IEventDispatc
 		return listenerHashTable.exists(type);
 	}
 
-	function getListenersForEventType(type : String) : Array<Dynamic->Void>
+	function get_listenersForEventType(type : String) : Array<Dynamic->Void>
 	{
 		if(listenerHashTable.exists(type))
 			return listenerHashTable.get(type).listeners
@@ -98,8 +98,8 @@ class EventDispatcherProxy implements IEventDispatcher, implements IEventDispatc
 		}
 		return false;
 	}
-	var interceptedEventHash : Hash<String>;
-	public function getInterceptedEventTypes() : Array<String>
+	var interceptedEventHash : Map<String,String>;
+	public function get_interceptedEventTypes() : Array<String>
 	{
 		var a : Array<String> = [];
 		var p : Dynamic;
@@ -107,9 +107,9 @@ class EventDispatcherProxy implements IEventDispatcher, implements IEventDispatc
 			a.push(p);
 		return a;
 	}
-	public function setInterceptedEventTypes(value : Array<String>) : Array<String>
+	public function set_interceptedEventTypes(value : Array<String>) : Array<String>
 	{
-		var hash : Hash<String> = new Hash();
+		var hash : Map<String,String> = new Map();
 		for(type in value)
 			hash.set(type, type);
 		interceptedEventHash = hash;
@@ -133,7 +133,7 @@ class EventDispatcherProxy implements IEventDispatcher, implements IEventDispatc
 		var listeners : Array<Dynamic->Void>;
 		if(hasListenerHashProperty(evt.type)) 
 		{
-			listeners = getListenersForEventType(evt.type);
+			listeners = get_listenersForEventType(evt.type);
 			for(func in listeners)
 				//func(this, pEvt); xxx
 				func(pEvt);

@@ -8,13 +8,13 @@ import as3isolib.bounds.IBounds;
 import as3isolib.core.IIsoContainer;
 import flash.display.DisplayObjectContainer;
 
-interface IIsoScene implements IIsoContainer
+interface IIsoScene extends IIsoContainer
 {
-	var isoBounds(getIsoBounds, never) : IBounds;
-	var invalidatedChildren(getInvalidatedChildren, never) : Array<IIsoContainer>;
-	var hostContainer(getHostContainer, setHostContainer) : DisplayObjectContainer;
-	function getIsoBounds() : IBounds;
-	function getInvalidatedChildren() : Array<IIsoContainer>;
-	function getHostContainer() : DisplayObjectContainer;
-	function setHostContainer(value : DisplayObjectContainer) : DisplayObjectContainer;
+	var isoBounds(get_isoBounds, never) : IBounds;
+	var invalidatedChildren(get_invalidatedChildren, never) : Array<IIsoContainer>;
+	var hostContainer(get_hostContainer, set_hostContainer) : DisplayObjectContainer;
+	function get_isoBounds() : IBounds;
+	function get_invalidatedChildren() : Array<IIsoContainer>;
+	function get_hostContainer() : DisplayObjectContainer;
+	function set_hostContainer(value : DisplayObjectContainer) : DisplayObjectContainer;
 }

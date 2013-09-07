@@ -69,7 +69,7 @@ class Pt extends Point
 		this.z = z;
 	}
 
-	#if flash override #end public function toString() : String
+	override public function toString() : String
 	{
 		return "x:" + x + " y:" + y + " z:" + z;
 	}

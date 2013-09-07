@@ -22,27 +22,27 @@ import flash.errors.Error;
 
 using as3isolib.ArrayUtil;
 
-class IsoScene extends IsoContainer, implements IIsoScene
+class IsoScene extends IsoContainer implements IIsoScene
 {
-	public var isoBounds(getIsoBounds, never) : IBounds;
-	public var hostContainer(getHostContainer, setHostContainer) : DisplayObjectContainer;
-	public var invalidatedChildren(getInvalidatedChildren, never) : Array<IIsoContainer>;
-	public var layoutRenderer(getLayoutRenderer, setLayoutRenderer) : Dynamic;
-	public var styleRenderers(getStyleRenderers, setStyleRenderers) : Iterable <ISceneLayoutRenderer>;
+	public var isoBounds(get_isoBounds, never) : IBounds;
+	public var hostContainer(get_hostContainer, set_hostContainer) : DisplayObjectContainer;
+	public var invalidatedChildren(get_invalidatedChildren, never) : Array<IIsoContainer>;
+	public var layoutRenderer(get_layoutRenderer, set_layoutRenderer) : Dynamic;
+	public var styleRenderers(get_styleRenderers, set_styleRenderers) : Iterable <ISceneLayoutRenderer>;
 
 	var _isoBounds : IBounds;
-	public function getIsoBounds() : IBounds
+	public function get_isoBounds() : IBounds
 	{
 		return new SceneBounds(this);
 	}
 
 	var host : DisplayObjectContainer;
-	public function getHostContainer() : DisplayObjectContainer
+	public function get_hostContainer() : DisplayObjectContainer
 	{
 		return host;
 	}
 
-	public function setHostContainer(value : DisplayObjectContainer) : DisplayObjectContainer
+	public function set_hostContainer(value : DisplayObjectContainer) : DisplayObjectContainer
 	{
 		if(value != null && host != value) 
 		{
@@ -64,7 +64,7 @@ class IsoScene extends IsoContainer, implements IIsoScene
 	}
 
 	var invalidatedChildrenArray : Array<IIsoContainer>;
-	public function getInvalidatedChildren() : Array<IIsoContainer>
+	public function get_invalidatedChildren() : Array<IIsoContainer>
 	{
 		return invalidatedChildrenArray;
 	}
@@ -80,9 +80,9 @@ class IsoScene extends IsoContainer, implements IIsoScene
 		else throw new Error("parameter child is not of type IIsoDisplayObject");
 	}
 
-	override public function setChildIndex(child : INode, index : Int) : Void
+	override public function set_childIndex(child : INode, index : Int) : Void
 	{
-		super.setChildIndex(child, index);
+		super.set_childIndex(child, index);
 		bIsInvalidated = true;
 	}
 
@@ -118,12 +118,12 @@ class IsoScene extends IsoContainer, implements IIsoScene
 	var bLayoutIsFactory : Bool;
 	var layoutObject : Dynamic;
 
-	public function getLayoutRenderer() : Dynamic
+	public function get_layoutRenderer() : Dynamic
 	{
 		return layoutObject;
 	}
 
-	public function setLayoutRenderer(value : Dynamic) : Dynamic
+	public function set_layoutRenderer(value : Dynamic): Dynamic
 	{
 		if(!value) 
 		{
@@ -139,17 +139,18 @@ class IsoScene extends IsoContainer, implements IIsoScene
 			layoutObject = value;
 			bIsInvalidated = true;
 		}
+                return 0;
 	}
 
 	public var stylingEnabled : Bool;
 	var styleRendererFactories : Iterable <ISceneLayoutRenderer>;
 
-	public function getStyleRenderers() : Iterable <ISceneLayoutRenderer>
+	public function get_styleRenderers() : Iterable <ISceneLayoutRenderer>
 	{
 		return styleRendererFactories;
 	}
 
-	public function setStyleRenderers(value : Iterable <ISceneLayoutRenderer>) : Iterable <ISceneLayoutRenderer>
+	public function set_styleRenderers(value : Iterable <ISceneLayoutRenderer>) : Iterable <ISceneLayoutRenderer>
 	{
 		if(value != null) styleRendererFactories = value;
 		else styleRendererFactories = null;

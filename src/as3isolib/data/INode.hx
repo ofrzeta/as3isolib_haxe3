@@ -6,38 +6,38 @@ package as3isolib.data;
 
 import eDpLib.events.IEventDispatcherProxy;
 
-interface INode implements IEventDispatcherProxy
+interface INode extends IEventDispatcherProxy
 {
-	var id(getId, setId) : String;
-	var name(getName, setName) : String;
-	var data(getData, setData) : Dynamic;
-	var owner(getOwner, never) : INode;
-	var hasParent(getHasParent, never) : Bool;
-	var parent(getParent, never) : INode;
-	var children(getChildren, never) : Array<INode>;
-	var numChildren(getNumChildren, never) : Int;
+	var id(get_id, set_id) : String;
+	var name(get_name, set_name) : String;
+	var data(get_data, set_data) : Dynamic;
+	var owner(get_owner, never) : INode;
+	var hasParent(get_hasParent, never) : Bool;
+	var parent(get_parent, never) : INode;
+	var children(get_children, never) : Array<INode>;
+	var numChildren(get_numChildren, never) : Int;
 
 
-	function getId() : String;
-	function setId(value : String) : String;
-	function getName() : String;
-	function setName(value : String) : String;
-	function getData() : Dynamic;
-	function setData(value : Dynamic) : Dynamic;
-	function getOwner() : INode;
-	function getParent() : INode;
-	function getHasParent() : Bool;
-	function getRootNode() : INode;
-	function getDescendantNodes(includeBranches : Bool = false) : Array<INode>;
+	function get_id() : String;
+	function set_id(value : String) : String;
+	function get_name() : String;
+	function set_name(value : String) : String;
+	function get_data() : Dynamic;
+	function set_data(value : Dynamic) : Dynamic;
+	function get_owner() : INode;
+	function get_parent() : INode;
+	function get_hasParent() : Bool;
+	function get_rootNode() : INode;
+	function get_descendantNodes(includeBranches : Bool = false) : Array<INode>;
 	function contains(value : INode) : Bool;
-	function getChildren() : Array<INode>;
-	function getNumChildren() : Int;
+	function get_children() : Array<INode>;
+	function get_numChildren() : Int;
 	function addChild(child : INode) : Void;
 	function addChildAt(child : INode, index : Int) : Void;
-	function getChildIndex(child : INode) : Int;
-	function getChildAt(index : Int) : INode;
-	function getChildByID(id : String) : INode;
-	function setChildIndex(child : INode, index : Int) : Void;
+	function get_childIndex(child : INode) : Int;
+	function get_childAt(index : Int) : INode;
+	function get_childByID(id : String) : INode;
+	function set_childIndex(child : INode, index : Int) : Void;
 	function removeChild(child : INode) : INode;
 	function removeChildAt(index : Int) : INode;
 	function removeChildByID(id : String) : INode;

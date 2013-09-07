@@ -7,16 +7,16 @@ package as3isolib.core;
 import as3isolib.data.INode;
 import flash.display.Sprite;
 
-interface IIsoContainer implements INode, implements IInvalidation
+interface IIsoContainer extends INode extends IInvalidation
 {
-	var includeInLayout(getIncludeInLayout, setIncludeInLayout) : Bool;
-	var displayListChildren(getDisplayListChildren, never) : Array<IIsoContainer>;
-	var depth(getDepth, never) : Int;
-	var container(getContainer, never) : Sprite;
-	function getIncludeInLayout() : Bool;
-	function setIncludeInLayout(value : Bool) : Bool;
-	function getDisplayListChildren() : Array<IIsoContainer>;
-	function getDepth() : Int;
-	function getContainer() : Sprite;
+	var includeInLayout(get_includeInLayout, set_includeInLayout) : Bool;
+	var displayListChildren(get_displayListChildren, never) : Array<IIsoContainer>;
+	var depth(get_depth, never) : Int;
+	var container(get_container, never) : Sprite;
+	function get_includeInLayout() : Bool;
+	function set_includeInLayout(value : Bool) : Bool;
+	function get_displayListChildren() : Array<IIsoContainer>;
+	function get_depth() : Int;
+	function get_container() : Sprite;
 	function render(recursive : Bool = true) : Void;
 }

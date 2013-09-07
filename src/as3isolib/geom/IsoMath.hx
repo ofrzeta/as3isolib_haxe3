@@ -9,15 +9,15 @@ import as3isolib.geom.transformations.IAxonometricTransformation;
 
 class IsoMath
 {
-	static public var transformationObject(getTransformationObject, setTransformationObject) : IAxonometricTransformation;
+	static public var transformationObject(get_transformationObject, set_transformationObject) : IAxonometricTransformation;
 	static var transformationObj : IAxonometricTransformation = new DefaultIsometricTransformation();
 
-	static public function getTransformationObject() : IAxonometricTransformation
+	static public function get_transformationObject() : IAxonometricTransformation
 	{
 		return transformationObj;
 	}
 
-	static public function setTransformationObject(value : IAxonometricTransformation) : IAxonometricTransformation
+	static public function set_transformationObject(value : IAxonometricTransformation) : IAxonometricTransformation
 	{
 		if(value != null) 
 			transformationObj = value

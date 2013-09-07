@@ -6,12 +6,12 @@ package as3isolib.graphics;
 
 import flash.geom.Matrix;
 
-interface IBitmapFill implements IFill
+interface IBitmapFill extends IFill
 {
-	var matrix(getMatrix, setMatrix) : Matrix;
-	var repeat(getRepeat, setRepeat) : Bool;
-	function getMatrix() : Matrix;
-	function setMatrix(value : Matrix) : Matrix;
-	function getRepeat() : Bool;
-	function setRepeat(value : Bool) : Bool;
+	var matrix(get_matrix, set_matrix) : Matrix;
+	var repeat(get_repeat, set_repeat) : Bool;
+	function get_matrix() : Matrix;
+	function set_matrix(value : Matrix) : Matrix;
+	function get_repeat() : Bool;
+	function set_repeat(value : Bool) : Bool;
 }

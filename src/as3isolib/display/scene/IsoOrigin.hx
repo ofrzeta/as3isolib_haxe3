@@ -105,21 +105,21 @@ class IsoOrigin extends IsoPrimitive
 		fill.end(g);
 	}
 
-	override public function setWidth(value : Float) : Float
+	override public function set_width(value : Float) : Float
 	{
-		super.setWidth(0);
+		super.set_width(0);
 		return 0;
 	}
 
-	override public function setLength(value : Float) : Float
+	override public function set_length(value : Float) : Float
 	{
-		super.setLength(0);
+		super.set_length(0);
 		return 0;
 	}
 
-	override public function setHeight(value : Float) : Float
+	override public function set_height(value : Float) : Float
 	{
-		super.setHeight(0);
+		super.set_height(0);
 		return 0;
 	}
 }

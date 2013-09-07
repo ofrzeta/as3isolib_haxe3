@@ -8,27 +8,27 @@ import as3isolib.geom.Pt;
 
 interface IBounds
 {
-	var width(getWidth, never) : Float;
-	var length(getLength, never) : Float;
-	var height(getHeight, never) : Float;
-	var left(getLeft, never) : Float;
-	var right(getRight, never) : Float;
-	var back(getBack, never) : Float;
-	var front(getFront, never) : Float;
-	var bottom(getBottom, never) : Float;
-	var top(getTop, never) : Float;
-	var centerPt(getCenterPt, never) : Pt;
-	function getWidth() : Float;
-	function getLength() : Float;
-	function getHeight() : Float;
-	function getLeft() : Float;
-	function getRight() : Float;
-	function getBack() : Float;
-	function getFront() : Float;
-	function getBottom() : Float;
-	function getTop() : Float;
-	function getCenterPt() : Pt;
-	function getPts() : Array<Pt>;
+	var width(get_width, never) : Float;
+	var length(get_length, never) : Float;
+	var height(get_height, never) : Float;
+	var left(get_left, never) : Float;
+	var right(get_right, never) : Float;
+	var back(get_back, never) : Float;
+	var front(get_front, never) : Float;
+	var bottom(get_bottom, never) : Float;
+	var top(get_top, never) : Float;
+	var centerPt(get_centerPt, never) : Pt;
+	function get_width() : Float;
+	function get_length() : Float;
+	function get_height() : Float;
+	function get_left() : Float;
+	function get_right() : Float;
+	function get_back() : Float;
+	function get_front() : Float;
+	function get_bottom() : Float;
+	function get_top() : Float;
+	function get_centerPt() : Pt;
+	function get_pts() : Array<Pt>;
 	function intersects(bounds : IBounds) : Bool;
 	function containsPt(target : Pt) : Bool;
 }

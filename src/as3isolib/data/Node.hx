@@ -11,17 +11,17 @@ import flash.errors.Error;
 /**
  * A base hierachical data structure class.
  */
-class Node extends EventDispatcherProxy, implements INode
+class Node extends EventDispatcherProxy implements INode
 {
 	static var _IDCount : Int = 0;
-	public var id(getId, setId) : String;
-	public var name(getName, setName) : String;
-	public var data(getData, setData) : Dynamic;
-	public var owner(getOwner, never) : INode;
-	public var hasParent(getHasParent, never) : Bool;
-	public var parent(getParent, never) : INode;
-	public var children(getChildren, never) : Array<INode>;
-	public var numChildren(getNumChildren, never) : Int;
+	public var id(get_id, set_id) : String;
+	public var name(get_name, set_name) : String;
+	public var data(get_data, set_data) : Dynamic;
+	public var owner(get_owner, never) : INode;
+	public var hasParent(get_hasParent, never) : Bool;
+	public var parent(get_parent, never) : INode;
+	public var children(get_children, never) : Array<INode>;
+	public var numChildren(get_numChildren, never) : Int;
 	public var UID : Int;
 	var setID : String;
 
@@ -32,14 +32,14 @@ class Node extends EventDispatcherProxy, implements INode
 		super();
 	}
 
-	public function getId() : String
+	public function get_id() : String
 	{
 		return (setID == null || setID == "") ? 
 			"node" + Std.string(UID) :
 			setID;
 	}
 
-	public function setId(value : String) : String
+	public function set_id(value : String) : String
 	{
 		setID = value;
 		return value;
@@ -50,12 +50,12 @@ class Node extends EventDispatcherProxy, implements INode
 	////////////////////////////////////////////////
 	var _name : String;
 
-	public function getName() : String
+	public function get_name() : String
 	{
 		return _name;
 	}
 
-	public function setName(value : String) : String
+	public function set_name(value : String) : String
 	{
 		_name = value;
 		return value;
@@ -65,14 +65,15 @@ class Node extends EventDispatcherProxy, implements INode
 	//	DATA
 	////////////////////////////////////////////////////////////////////////
 	var _data : Dynamic;
-	public function getData() : Dynamic
+	public function get_data() : Dynamic
 	{
 		return _data;
 	}
 
-	public function setData(value : Dynamic) : Dynamic
+	public function set_data(value : Dynamic): Dynamic
 	{
 		_data = value;
+                return true;
 	}
 
 	//////////////////////////////////////////////////////////////////
@@ -80,7 +81,7 @@ class Node extends EventDispatcherProxy, implements INode
 	//////////////////////////////////////////////////////////////////
 	var ownerObject : Dynamic;
 
-	public function getOwner() : INode
+	public function get_owner() : INode
 	{
 		return (ownerObject != null) ? cast (ownerObject, INode) : parentNode;
 	}
@@ -91,12 +92,12 @@ class Node extends EventDispatcherProxy, implements INode
 	////////////////////////////////////////////////////////////////////////
 	var parentNode : INode;
 
-	public function getHasParent() : Bool
+	public function get_hasParent() : Bool
 	{
 		return (parentNode != null) ? true : false;
 	}
 
-	public function getParent() : INode
+	public function get_parent() : INode
 	{
 		return parentNode;
 	}
@@ -105,7 +106,7 @@ class Node extends EventDispatcherProxy, implements INode
 	//	ROOT NODE
 	////////////////////////////////////////////////////////////////////////
 
-	public function getRootNode() : INode
+	public function get_rootNode() : INode
 	{
 		var p : INode = this;
 
@@ -115,14 +116,14 @@ class Node extends EventDispatcherProxy, implements INode
 		return p;
 	}
 
-	public function getDescendantNodes(includeBranches : Bool = false) : Array<INode>
+	public function get_descendantNodes(includeBranches : Bool = false) : Array<INode>
 	{
 		var descendants : Array<INode> = [];
 		for(child in childrenArray)
 		{
 			if(child.children.length > 0) 
 			{
-				descendants = descendants.concat(child.getDescendantNodes(includeBranches));
+				descendants = descendants.concat(child.get_descendantNodes(includeBranches));
 
 				if(includeBranches)
 					descendants.push(child);
@@ -152,12 +153,12 @@ class Node extends EventDispatcherProxy, implements INode
 
 	var childrenArray : Array<INode>;
 
-	public function getChildren() : Array<INode>
+	public function get_children() : Array<INode>
 	{
 		return childrenArray;
 	}
 
-	public function getNumChildren() : Int
+	public function get_numChildren() : Int
 	{
 		return childrenArray.length;
 	}
@@ -170,7 +171,7 @@ class Node extends EventDispatcherProxy, implements INode
 	public function addChildAt(child : INode, index : Int) : Void
 	{
 		//if it already exists here, do nothing
-		if(getChildByID(child.id) != null)
+		if(get_childByID(child.id) != null)
 			return;
 
 		//if it has another parent, then remove it there
@@ -189,14 +190,14 @@ class Node extends EventDispatcherProxy, implements INode
 		dispatchEvent(evt);
 	}
 
-	public function getChildAt(index : Int) : INode
+	public function get_childAt(index : Int) : INode
 	{
 		if(index >= numChildren) 
 			throw new Error("");
 		return childrenArray[index];
 	}
 
-	public function getChildIndex(child : INode) : Int
+	public function get_childIndex(child : INode) : Int
 	{
 		var i : Int = 0;
 
@@ -210,9 +211,9 @@ class Node extends EventDispatcherProxy, implements INode
 		return -1;
 	}
 
-	public function setChildIndex(child : INode, index : Int) : Void
+	public function set_childIndex(child : INode, index : Int) : Void
 	{
-		var i : Int = getChildIndex(child);
+		var i : Int = get_childIndex(child);
 
 		// Don't bother if it's already at this index
 		if(i == index) 
@@ -262,7 +263,7 @@ class Node extends EventDispatcherProxy, implements INode
 
 	public function removeChildByID(id : String) : INode
 	{
-		var child : INode = getChildByID(id);
+		var child : INode = get_childByID(id);
 
 		if(child != null) 
 		{
@@ -298,7 +299,7 @@ class Node extends EventDispatcherProxy, implements INode
 		childrenArray = new Array<INode>();
 	}
 
-	public function getChildByID(id : String) : INode
+	public function get_childByID(id : String) : INode
 	{
 		var childID : String;
 

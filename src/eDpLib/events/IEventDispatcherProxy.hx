@@ -6,12 +6,12 @@ package eDpLib.events;
 
 import flash.events.IEventDispatcher;
 
-interface IEventDispatcherProxy implements IEventDispatcher
+interface IEventDispatcherProxy extends IEventDispatcher
 {
-	var proxy(getProxy, setProxy) : IEventDispatcher;
-	var proxyTarget(getProxyTarget, setProxyTarget) : IEventDispatcher;
-	function getProxy() : IEventDispatcher;
-	function setProxy(value : IEventDispatcher) : IEventDispatcher;
-	function getProxyTarget() : IEventDispatcher;
-	function setProxyTarget(value : IEventDispatcher) : IEventDispatcher;
+	var proxy(get_proxy, set_proxy) : IEventDispatcher;
+	var proxyTarget(get_proxyTarget, set_proxyTarget) : IEventDispatcher;
+	function get_proxy() : IEventDispatcher;
+	function set_proxy(value : IEventDispatcher) : IEventDispatcher;
+	function get_proxyTarget() : IEventDispatcher;
+	function set_proxyTarget(value : IEventDispatcher) : IEventDispatcher;
 }

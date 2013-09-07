@@ -20,7 +20,7 @@ class IsoBox extends IsoPrimitive
 		super(descriptor);
 	}
 
-	override public function setStroke(value : IStroke) : IStroke
+	override public function set_stroke(value : IStroke) : IStroke
 	{
 		strokes = [value, value, value, value, value, value];
 		return value;

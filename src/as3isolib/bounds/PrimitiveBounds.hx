@@ -9,58 +9,58 @@ import as3isolib.geom.Pt;
 
 class PrimitiveBounds implements IBounds
 {
-	public var volume(getVolume, never) : Float;
-	public var width(getWidth, never) : Float;
-	public var length(getLength, never) : Float;
-	public var height(getHeight, never) : Float;
-	public var left(getLeft, never) : Float;
-	public var right(getRight, never) : Float;
-	public var back(getBack, never) : Float;
-	public var front(getFront, never) : Float;
-	public var bottom(getBottom, never) : Float;
-	public var top(getTop, never) : Float;
-	public var centerPt(getCenterPt, never) : Pt;
-	public function getVolume() : Float
+	public var volume(get_volume, never) : Float;
+	public var width(get_width, never) : Float;
+	public var length(get_length, never) : Float;
+	public var height(get_height, never) : Float;
+	public var left(get_left, never) : Float;
+	public var right(get_right, never) : Float;
+	public var back(get_back, never) : Float;
+	public var front(get_front, never) : Float;
+	public var bottom(get_bottom, never) : Float;
+	public var top(get_top, never) : Float;
+	public var centerPt(get_centerPt, never) : Pt;
+	public function get_volume() : Float
 	{
 		return _target.width * _target.length * _target.height;
 	}
-	public function getWidth() : Float
+	public function get_width() : Float
 	{
 		return _target.width;
 	}
-	public function getLength() : Float
+	public function get_length() : Float
 	{
 		return _target.length;
 	}
-	public function getHeight() : Float
+	public function get_height() : Float
 	{
 		return _target.height;
 	}
-	public function getLeft() : Float
+	public function get_left() : Float
 	{
 		return _target.x;
 	}
-	public function getRight() : Float
+	public function get_right() : Float
 	{
 		return _target.x + _target.width;
 	}
-	public function getBack() : Float
+	public function get_back() : Float
 	{
 		return _target.y;
 	}
-	public function getFront() : Float
+	public function get_front() : Float
 	{
 		return _target.y + _target.length;
 	}
-	public function getBottom() : Float
+	public function get_bottom() : Float
 	{
 		return _target.z;
 	}
-	public function getTop() : Float
+	public function get_top() : Float
 	{
 		return _target.z + _target.height;
 	}
-	public function getCenterPt() : Pt
+	public function get_centerPt() : Pt
 	{
 		var pt : Pt = new Pt();
 		pt.x = _target.x + _target.width / 2;
@@ -68,7 +68,7 @@ class PrimitiveBounds implements IBounds
 		pt.z = _target.z + _target.height / 2;
 		return pt;
 	}
-	public function getPts() : Array<Pt>
+	public function get_pts() : Array<Pt>
 	{
 		var a : Array<Pt> = [];
 		a.push(new Pt(left, back, bottom));

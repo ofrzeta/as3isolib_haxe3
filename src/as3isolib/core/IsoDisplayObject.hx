@@ -16,23 +16,23 @@ import flash.geom.Matrix;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 
-class IsoDisplayObject extends IsoContainer, implements IIsoDisplayObject
+class IsoDisplayObject extends IsoContainer implements IIsoDisplayObject
 {
-	public var isAnimated(getIsAnimated, setIsAnimated) : Bool;
-	public var isoBounds(getIsoBounds, never) : IBounds;
-	public var screenBounds(getScreenBounds, never) : Rectangle;
-	public var inverseOriginX(getInverseOriginX, never) : Float;
-	public var inverseOriginY(getInverseOriginY, never) : Float;
-	public var x(getX, setX) : Float;
-	public var screenX(getScreenX, never) : Float;
-	public var y(getY, setY) : Float;
-	public var screenY(getScreenY, never) : Float;
-	public var z(getZ, setZ) : Float;
-	public var distance(getDistance, setDistance) : Float;
-	public var width(getWidth, setWidth) : Float;
-	public var length(getLength, setLength) : Float;
-	public var height(getHeight, setHeight) : Float;
-	public var renderAsOrphan(getRenderAsOrphan, setRenderAsOrphan) : Bool;
+	public var isAnimated(get_isAnimated, set_isAnimated) : Bool;
+	public var isoBounds(get_isoBounds, never) : IBounds;
+	public var screenBounds(get_screenBounds, never) : Rectangle;
+	public var inverseOriginX(get_inverseOriginX, never) : Float;
+	public var inverseOriginY(get_inverseOriginY, never) : Float;
+	public var x(get_x, set_x) : Float;
+	public var screenX(get_screenX, never) : Float;
+	public var y(get_y, set_y) : Float;
+	public var screenY(get_screenY, never) : Float;
+	public var z(get_z, set_z) : Float;
+	public var distance(get_distance, set_distance) : Float;
+	public var width(get_width, set_width) : Float;
+	public var length(get_length, set_length) : Float;
+	public var height(get_height, set_height) : Float;
+	public var renderAsOrphan(get_renderAsOrphan, set_renderAsOrphan) : Bool;
 	var cachedRenderData : RenderData;
 
 	//////////////////////////////////////////////////////////////////
@@ -41,21 +41,23 @@ class IsoDisplayObject extends IsoContainer, implements IIsoDisplayObject
 	/**
 	 * @TODO Serious hack for NME
 	 */
-	public function getRenderData() : RenderData
+	public function get_renderData() : RenderData
 	{
-		var r : Rectangle = #if (flash || js) mainContainer.getBounds(mainContainer) #else mainContainer.nmeGetPixelBounds() #end; // todo nme needs a real getBounds()
+		var r : Rectangle = mainContainer.getBounds(mainContainer);
 		if(isInvalidated || cachedRenderData==null) 
 		{
 			var flag : Bool = bRenderAsOrphan; //set to allow for rendering regardless of hierarchy
 			bRenderAsOrphan = true;
 
 			render(true);
-
+/*
 #if neko
 			var fillColor = {a : 0, rgb : 0};
 #else
 			var fillColor = 0;
 #end
+*/
+			var fillColor = 0;
 			var bd : BitmapData = new BitmapData(Std.int(r.width) + 1, Std.int(r.height) + 1, true, fillColor);
 			bd.draw(mainContainer, new Matrix(1, 0, 0, 1, -r.left, -r.top));
 
@@ -82,12 +84,12 @@ class IsoDisplayObject extends IsoContainer, implements IIsoDisplayObject
 
 	var _isAnimated : Bool;
 
-	public function getIsAnimated() : Bool
+	public function get_isAnimated() : Bool
 	{
 		return _isAnimated;
 	}
 
-	public function setIsAnimated(value : Bool) : Bool
+	public function set_isAnimated(value : Bool) : Bool
 	{
 		_isAnimated = value;
 		//mainContainer.cacheAsBitmap = value;
@@ -100,7 +102,7 @@ class IsoDisplayObject extends IsoContainer, implements IIsoDisplayObject
 
 	var isoBoundsObject : IBounds;
 
-	public function getIsoBounds() : IBounds
+	public function get_isoBounds() : IBounds
 	{
 		if(isoBoundsObject == null || isInvalidated)
 			isoBoundsObject = new PrimitiveBounds(this);
@@ -111,16 +113,16 @@ class IsoDisplayObject extends IsoContainer, implements IIsoDisplayObject
 	/**
 	 * @TODO Serious hack for NME
 	 */
-	public function getScreenBounds() : Rectangle
+	public function get_screenBounds() : Rectangle
 	{
-		var screenBounds : Rectangle = #if (flash || js) mainContainer.getBounds(mainContainer) #else mainContainer.nmeGetPixelBounds() #end; // todo nme needs a real getBounds()
+		var screenBounds : Rectangle = mainContainer.getBounds(mainContainer);
 		screenBounds.x += mainContainer.x;
 		screenBounds.y += mainContainer.y;
 
 		return screenBounds;
 	}
 
-	public function getBounds(targetCoordinateSpace : DisplayObject) : Rectangle
+	public function get_bounds(targetCoordinateSpace : DisplayObject) : Rectangle
 	{
 		var rect : Rectangle = screenBounds;
 
@@ -134,12 +136,12 @@ class IsoDisplayObject extends IsoContainer, implements IIsoDisplayObject
 		return rect;
 	}
 
-	public function getInverseOriginX() : Float
+	public function get_inverseOriginX() : Float
 	{
 		return IsoMath.isoToScreen(new Pt(x + width, y + length, z)).x;
 	}
 
-	public function getInverseOriginY() : Float
+	public function get_inverseOriginY() : Float
 	{
 		return IsoMath.isoToScreen(new Pt(x + width, y + length, z)).y;
 	}
@@ -188,12 +190,12 @@ class IsoDisplayObject extends IsoContainer, implements IIsoDisplayObject
 	var oldX : Float;
 
 	// xxx TODO was marked as [Bindable("move")] in original
-	public function getX() : Float
+	public function get_x() : Float
 	{
 		return isoX;
 	}
 
-	public function setX(value : Float) : Float
+	public function set_x(value : Float) : Float
 	{
 		if(!usePreciseValues) 
 			value = Math.round(value);
@@ -211,7 +213,7 @@ class IsoDisplayObject extends IsoContainer, implements IIsoDisplayObject
 		return value;
 	}
 
-	public function getScreenX() : Float
+	public function get_screenX() : Float
 	{
 		return IsoMath.isoToScreen(new Pt(x, y, z)).x;
 	}
@@ -223,13 +225,13 @@ class IsoDisplayObject extends IsoContainer, implements IIsoDisplayObject
 	var isoY : Float;
 	var oldY : Float;
 
-	public function getY() : Float
+	public function get_y() : Float
 	{
 		return isoY;
 	}
 
 	// xxx TODO marked [Bindable("move")] in original
-	public function setY(value : Float) : Float
+	public function set_y(value : Float) : Float
 	{
 		if(!usePreciseValues)
 			value = Math.round(value);
@@ -247,7 +249,7 @@ class IsoDisplayObject extends IsoContainer, implements IIsoDisplayObject
 		return value;
 	}
 
-	public function getScreenY() : Float
+	public function get_screenY() : Float
 	{
 		return IsoMath.isoToScreen(new Pt(x, y, z)).y;
 	}
@@ -259,12 +261,12 @@ class IsoDisplayObject extends IsoContainer, implements IIsoDisplayObject
 	var isoZ : Float;
 	var oldZ : Float;
 
-	public function getZ() : Float
+	public function get_z() : Float
 	{
 		return isoZ;
 	}
 
-	public function setZ(value : Float) : Float
+	public function set_z(value : Float) : Float
 	{
 		if(!usePreciseValues)
 			value = Math.round(value);
@@ -288,12 +290,12 @@ class IsoDisplayObject extends IsoContainer, implements IIsoDisplayObject
 		
 	var dist : Float;
 
-	public function getDistance() : Float
+	public function get_distance() : Float
 	{
 		return dist;
 	}
 
-	public function setDistance(value : Float) : Float
+	public function set_distance(value : Float) : Float
 	{
 		dist = value;
 		return value;
@@ -303,7 +305,7 @@ class IsoDisplayObject extends IsoContainer, implements IIsoDisplayObject
 	//	GEOMETRY
 	/////////////////////////////////////////////////////////
 
-	public function setSize(width : Float, length : Float, height : Float) : Void
+	public function set_size(width : Float, length : Float, height : Float) : Void
 	{
 		this.width = width;
 		this.length = length;
@@ -318,12 +320,12 @@ class IsoDisplayObject extends IsoContainer, implements IIsoDisplayObject
 	var isoWidth : Float;
 	var oldWidth : Float;
 
-	public function getWidth() : Float
+	public function get_width() : Float
 	{
 		return isoWidth;
 	}
 
-	public function setWidth(value : Float) : Float
+	public function set_width(value : Float) : Float
 	{
 		if(!usePreciseValues)
 			value = Math.round(value);
@@ -350,12 +352,12 @@ class IsoDisplayObject extends IsoContainer, implements IIsoDisplayObject
 	var isoLength : Float;
 	var oldLength : Float;
 
-	public function getLength() : Float
+	public function get_length() : Float
 	{
 		return isoLength;
 	}
 
-	public function setLength(value : Float) : Float
+	public function set_length(value : Float) : Float
 	{
 		if(!usePreciseValues)
 			value = Math.round(value);
@@ -382,12 +384,12 @@ class IsoDisplayObject extends IsoContainer, implements IIsoDisplayObject
 	var isoHeight : Float;
 	var oldHeight : Float;
 
-	public function getHeight() : Float
+	public function get_height() : Float
 	{
 		return isoHeight;
 	}
 
-	public function setHeight(value : Float) : Float
+	public function set_height(value : Float) : Float
 	{
 		if(!usePreciseValues)
 			value = Math.round(value);
@@ -412,12 +414,12 @@ class IsoDisplayObject extends IsoContainer, implements IIsoDisplayObject
 
 	var bRenderAsOrphan : Bool;
 
-	public function getRenderAsOrphan() : Bool
+	public function get_renderAsOrphan() : Bool
 	{
 		return bRenderAsOrphan;
 	}
 
-	public function setRenderAsOrphan(value : Bool) : Bool
+	public function set_renderAsOrphan(value : Bool) : Bool
 	{
 		bRenderAsOrphan = value;
 		return value;
@@ -553,7 +555,7 @@ class IsoDisplayObject extends IsoContainer, implements IIsoDisplayObject
 		}
 	}
 
-	override public function getIsInvalidated() : Bool
+	override public function get_isInvalidated() : Bool
 	{
 		return (bPositionInvalidated || bSizeInvalidated);
 	}
@@ -578,7 +580,7 @@ class IsoDisplayObject extends IsoContainer, implements IIsoDisplayObject
 		//var cloneInstance : IIsoDisplayObject = new CloneClass();
 		var CloneClass : Class<IsoDisplayObject> = Type.getClass(this);
 		var cloneInstance : IIsoDisplayObject = Type.createInstance(CloneClass,[]);
-		cloneInstance.setSize(isoWidth, isoLength, isoHeight);
+		cloneInstance.set_size(isoWidth, isoLength, isoHeight);
 
 		return cloneInstance;
 	}

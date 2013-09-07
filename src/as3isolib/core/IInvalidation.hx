@@ -6,6 +6,6 @@ package as3isolib.core;
 
 interface IInvalidation
 {
-	var isInvalidated(getIsInvalidated, never) : Bool;
-	function getIsInvalidated() : Bool;
+	var isInvalidated(get_isInvalidated, never) : Bool;
+	function get_isInvalidated() : Bool;
 }

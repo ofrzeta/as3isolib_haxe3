@@ -10,7 +10,7 @@ class SolidColorFill implements IFill
 {
 	static var _IDCount : Int = 0;
 
-	public var id(getId, setId) : String;
+	public var id(get_id, set_id) : String;
 	public var UID : Int;
 	public var color : Int;
 	public var alpha : Float;
@@ -24,12 +24,12 @@ class SolidColorFill implements IFill
 		this.alpha = alpha;
 	}
 
-	public function getId() : String
+	public function get_id() : String
 	{
 		return (setID == null || setID == "") ? "SolidColorFill " + Std.string(UID) : setID;
 	}
 
-	public function setId(value : String) : String
+	public function set_id(value : String) : String
 	{
 		setID = value;
 		return value;

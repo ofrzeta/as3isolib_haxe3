@@ -8,7 +8,7 @@ import as3isolib.core.IIsoContainer;
 import as3isolib.core.IsoDisplayObject;
 import as3isolib.display.scene.IIsoScene;
 #if flash
-import flash.utils.TypedDictionary;
+// import flash.utils.TypedDictionary;
 #else
 typedef Deps = {
 	var obj : IsoDisplayObject;
@@ -22,7 +22,7 @@ typedef Deps = {
  */
 class DefaultSceneLayoutRenderer implements ISceneLayoutRenderer
 {
-	public var collisionDetection(getCollisionDetection, setCollisionDetection) : IsoDisplayObject->IsoDisplayObject->Int;
+	public var collisionDetection(get_collisionDetection, set_collisionDetection) : IsoDisplayObject->IsoDisplayObject->Int;
 
 	var collisionDetectionFunc : IsoDisplayObject->IsoDisplayObject->Int;
 	// It's faster to make class variables & a method, rather than to do a local function closure
@@ -31,15 +31,15 @@ class DefaultSceneLayoutRenderer implements ISceneLayoutRenderer
 	var scene : IIsoScene;
 
 #if flash
-	var visited : TypedDictionary<IsoDisplayObject,Bool>;
-	var dependency : TypedDictionary<IsoDisplayObject,Array<IsoDisplayObject>>;
+	var visited : Map<IsoDisplayObject,Bool>;
+	var dependency : Map<IsoDisplayObject,Array<IsoDisplayObject>>;
 #else
-	var visited : IntHash<Bool>;
-	var dependency : IntHash<Deps>;
+	var visited : Map<Int,Bool>;
+	var dependency : Map<Int,Deps>;
 #end
 
 	public function new() {
-		visited = new #if flash TypedDictionary() #else IntHash() #end;
+		visited = new Map();
 	}
 
 	/**
@@ -56,7 +56,7 @@ class DefaultSceneLayoutRenderer implements ISceneLayoutRenderer
 		
 		// TODO - cache dependencies between frames, only adjust invalidated objects, keeping old ordering as best as possible
 		// IIsoDisplayObject -> [obj that should be behind the key]
-		dependency = #if flash new TypedDictionary() #else new IntHash() #end;
+		dependency = new Map();
 
 		// For now, use the non-rearranging display list so that the dependency sort will tend to create similar output each pass
 		var children : Array<IIsoContainer> = scene.displayListChildren;
@@ -128,7 +128,7 @@ class DefaultSceneLayoutRenderer implements ISceneLayoutRenderer
 		}
 
 		// Clear out temporary dictionary so we're not retaining memory between calls
-		visited = #if flash new TypedDictionary() #else new IntHash() #end;
+		visited = new Map();
 
 		// DEBUG OUTPUT
 		
@@ -162,7 +162,7 @@ class DefaultSceneLayoutRenderer implements ISceneLayoutRenderer
 		#end
 		if(depth != obj.depth) 
 		{
-			scene.setChildIndex(obj, depth);
+			scene.set_childIndex(obj, depth);
 		}
 		depth++;
 	}
@@ -170,12 +170,12 @@ class DefaultSceneLayoutRenderer implements ISceneLayoutRenderer
 	/////////////////////////////////////////////////////////////////
 	//	COLLISION DETECTION
 	/////////////////////////////////////////////////////////////////
-	public function getCollisionDetection() : IsoDisplayObject->IsoDisplayObject->Int
+	public function get_collisionDetection() : IsoDisplayObject->IsoDisplayObject->Int
 	{
 		return collisionDetectionFunc;
 	}
 
-	public function setCollisionDetection(value : IsoDisplayObject->IsoDisplayObject->Int) : IsoDisplayObject->IsoDisplayObject->Int
+	public function set_collisionDetection(value : IsoDisplayObject->IsoDisplayObject->Int) : IsoDisplayObject->IsoDisplayObject->Int
 	{
 		collisionDetectionFunc = value;
 		return value;

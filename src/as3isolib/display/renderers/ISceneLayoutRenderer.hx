@@ -9,7 +9,7 @@ import as3isolib.core.IsoDisplayObject;
 /**
  * ISceneLayoutRenderer is a marker interface to denote that an implementor is intended to handle layout logic.
  */
-interface ISceneLayoutRenderer implements ISceneRenderer
+interface ISceneLayoutRenderer extends ISceneRenderer
 {
 	/**
 	 * Allows the developer to leverage an ISceneLayoutRenderer's looping mechanism to detect and handle collisions between a scene's objects.
@@ -19,8 +19,8 @@ interface ISceneLayoutRenderer implements ISceneRenderer
 	 * 
 	 * @default null
 	 */
-	var collisionDetection(getCollisionDetection, setCollisionDetection) : IsoDisplayObject->IsoDisplayObject->Int;
+	var collisionDetection(get_collisionDetection, set_collisionDetection) : IsoDisplayObject->IsoDisplayObject->Int;
 
-	function getCollisionDetection() : IsoDisplayObject->IsoDisplayObject->Int;
-	function setCollisionDetection(value : IsoDisplayObject->IsoDisplayObject->Int) : IsoDisplayObject->IsoDisplayObject->Int;
+	function get_collisionDetection() : IsoDisplayObject->IsoDisplayObject->Int;
+	function set_collisionDetection(value : IsoDisplayObject->IsoDisplayObject->Int) : IsoDisplayObject->IsoDisplayObject->Int;
 }

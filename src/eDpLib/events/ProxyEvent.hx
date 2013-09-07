@@ -43,7 +43,8 @@ class ProxyEvent extends Event
 	/**
 	* Just another accessor for the proxy property.
 	*/
-	@:getter(target) function get_target() : {} {
+	//@:getter(target) function get_target() : {} {
+	override function get_target() : {} {
 		return proxy;
 	}
 

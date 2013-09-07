@@ -8,22 +8,22 @@ import as3isolib.core.IIsoDisplayObject;
 import as3isolib.graphics.IFill;
 import as3isolib.graphics.IStroke;
 
-interface IIsoPrimitive implements IIsoDisplayObject
+interface IIsoPrimitive extends IIsoDisplayObject
 {
-	var styleType(getStyleType, setStyleType) : String;
-	var fill(getFill, setFill) : IFill;
-	var fills(getFills, setFills) : Array<IFill>;
-	var stroke(getStroke, setStroke) : IStroke;
-	var strokes(getStrokes, setStrokes) : Array<IStroke>;
-	function getStyleType() : String;
-	function setStyleType(value : String) : String;
-	function getFill() : IFill;
-	function setFill(value : IFill) : IFill;
-	function getFills() : Array<IFill>;
-	function setFills(value : Array<IFill>) : Array<IFill>;
-	function getStroke() : IStroke;
-	function setStroke(value : IStroke) : IStroke;
-	function getStrokes() : Array<IStroke>;
-	function setStrokes(value : Array<IStroke>) : Array<IStroke>;
+	var styleType(get_styleType, set_styleType) : String;
+	var fill(get_fill, set_fill) : IFill;
+	var fills(get_fills, set_fills) : Array<IFill>;
+	var stroke(get_stroke, set_stroke) : IStroke;
+	var strokes(get_strokes, set_strokes) : Array<IStroke>;
+	function get_styleType() : String;
+	function set_styleType(value : String) : String;
+	function get_fill() : IFill;
+	function set_fill(value : IFill) : IFill;
+	function get_fills() : Array<IFill>;
+	function set_fills(value : Array<IFill>) : Array<IFill>;
+	function get_stroke() : IStroke;
+	function set_stroke(value : IStroke) : IStroke;
+	function get_strokes() : Array<IStroke>;
+	function set_strokes(value : Array<IStroke>) : Array<IStroke>;
 	function invalidateStyles() : Void;
 }

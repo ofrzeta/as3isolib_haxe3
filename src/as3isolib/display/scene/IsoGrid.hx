@@ -17,19 +17,19 @@ import flash.errors.Error;
  */
 class IsoGrid extends IsoPrimitive
 {
-	public var gridSize(getGridSize, never) : Array<Int>;
-	public var cellSize(getCellSize, setCellSize) : Float;
-	public var origin(getOrigin, never) : IsoOrigin;
-	public var showOrigin(getShowOrigin, setShowOrigin) : Bool;
-	public var gridlines(getGridlines, setGridlines) : IStroke;
+	public var gridSize(get_gridSize, never) : Array<Int>;
+	public var cellSize(get_cellSize, set_cellSize) : Float;
+	public var origin(get_origin, never) : IsoOrigin;
+	public var showOrigin(get_showOrigin, set_showOrigin) : Bool;
+	public var gridlines(get_gridlines, set_gridlines) : IStroke;
 	var gSize : Array<Int>;
 
-	public function getGridSize() : Array<Int>
+	public function get_gridSize() : Array<Int>
 	{
 		return gSize;
 	}
 
-	public function setGridSize(width : Int, length : Int, height : Int = 0) : Void
+	public function set_gridSize(width : Int, length : Int, height : Int = 0) : Void
 	{
 		if(gSize[0] != width || gSize[1] != length || gSize[2] != height) 
 		{
@@ -39,12 +39,12 @@ class IsoGrid extends IsoPrimitive
 	}
 
 	var cSize : Float;
-	public function getCellSize() : Float
+	public function get_cellSize() : Float
 	{
 		return cSize;
 	}
 
-	public function setCellSize(value : Float) : Float
+	public function set_cellSize(value : Float) : Float
 	{
 		if(value < 2) 
 			throw new Error("cellSize must be a positive value greater than 2");
@@ -59,7 +59,7 @@ class IsoGrid extends IsoPrimitive
 
 	var bShowOrigin : Bool;
 	var showOriginChanged : Bool;
-	public function getOrigin() : IsoOrigin
+	public function get_origin() : IsoOrigin
 	{
 		if(_origin == null) 
 			_origin = new IsoOrigin();
@@ -67,7 +67,7 @@ class IsoGrid extends IsoPrimitive
 		return _origin;
 	}
 
-	public function getShowOrigin() : Bool
+	public function get_showOrigin() : Bool
 	{
 		return bShowOrigin;
 	}
@@ -75,7 +75,7 @@ class IsoGrid extends IsoPrimitive
 	/**
 	 * Flag determining if the origin is visible.
 	 */
-	public function setShowOrigin(value : Bool) : Bool
+	public function set_showOrigin(value : Bool) : Bool
 	{
 		if(bShowOrigin != value) 
 		{
@@ -86,12 +86,12 @@ class IsoGrid extends IsoPrimitive
 		return value;
 	}
 
-	public function getGridlines() : IStroke
+	public function get_gridlines() : IStroke
 	{
 		return strokes[0];
 	}
 
-	public function setGridlines(value : IStroke) : IStroke
+	public function set_gridlines(value : IStroke) : IStroke
 	{
 		strokes = [value];
 		return value;
@@ -108,7 +108,7 @@ class IsoGrid extends IsoPrimitive
 			showOrigin = true;
 			gridlines = new Stroke(0, 0xCCCCCC, 0.5);
 			cellSize = 25;
-			setGridSize(5, 5);
+			set_gridSize(5, 5);
 		}
 	}
 

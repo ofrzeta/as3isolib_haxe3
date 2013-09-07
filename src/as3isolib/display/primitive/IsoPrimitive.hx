@@ -17,7 +17,7 @@ import flash.errors.Error;
  * IsoPrimitive is the base class for primitive-type classes that will make great use of Flash's drawing API.
  * Developers should not directly instantiate this class but rather extend it or one of the other primitive-type subclasses.
  */
-class IsoPrimitive extends IsoDisplayObject, implements IIsoPrimitive
+class IsoPrimitive extends IsoDisplayObject implements IIsoPrimitive
 {
 	static inline public var DEFAULT_WIDTH : Float = 25.0;
 	static inline public var DEFAULT_LENGTH : Float = 25.0;
@@ -26,12 +26,12 @@ class IsoPrimitive extends IsoDisplayObject, implements IIsoPrimitive
 	static var DEFAULT_FILL : IFill = new SolidColorFill(0xFFFFFF, 1);
 	public static var DEFAULT_STROKE : IStroke = new Stroke(0, 0x000000);
 
-	public var styleType(getStyleType, setStyleType) : String;
-	public var profileStroke(getProfileStroke, setProfileStroke) : IStroke;
-	public var fill(getFill, setFill) : IFill;
-	public var fills(getFills, setFills) : Array<IFill>;
-	public var stroke(getStroke, setStroke) : IStroke;
-	public var strokes(getStrokes, setStrokes) : Array<IStroke>;
+	public var styleType(get_styleType, set_styleType) : String;
+	public var profileStroke(get_profileStroke, set_profileStroke) : IStroke;
+	public var fill(get_fill, set_fill) : IFill;
+	public var fills(get_fills, set_fills) : Array<IFill>;
+	public var stroke(get_stroke, set_stroke) : IStroke;
+	public var strokes(get_strokes, set_strokes) : Array<IStroke>;
 
 	var edgesArray : Array<IStroke>;
 	var fillsArray : Array<IFill>;
@@ -39,12 +39,12 @@ class IsoPrimitive extends IsoDisplayObject, implements IIsoPrimitive
 	var pStroke : IStroke;
 	var bSytlesInvalidated : Bool;
 
-	public function getStyleType() : String
+	public function get_styleType() : String
 	{
 		return renderStyle;
 	}
 
-	public function setStyleType(value : String) : String
+	public function set_styleType(value : String) : String
 	{
 		if(renderStyle != value) 
 		{
@@ -62,12 +62,12 @@ class IsoPrimitive extends IsoDisplayObject, implements IIsoPrimitive
 		//	PROFILE STROKE
 		//////////////////////////////
 
-	public function getProfileStroke() : IStroke
+	public function get_profileStroke() : IStroke
 	{
 		return pStroke;
 	}
 
-	public function setProfileStroke(value : IStroke) : IStroke
+	public function set_profileStroke(value : IStroke) : IStroke
 	{
 		if(pStroke != value) 
 		{
@@ -83,12 +83,12 @@ class IsoPrimitive extends IsoDisplayObject, implements IIsoPrimitive
 		//	MAIN FILL
 		//////////////////////////////
 
-	public function getFill() : IFill
+	public function get_fill() : IFill
 	{
 		return fills[0];
 	}
 
-	public function setFill(value : IFill) : IFill
+	public function set_fill(value : IFill) : IFill
 	{
 		fills = [value, value, value, value, value, value];
 		return value;
@@ -97,7 +97,7 @@ class IsoPrimitive extends IsoDisplayObject, implements IIsoPrimitive
 		//	FILLS
 		//////////////////////////////
 
-	public function getFills() : Array<IFill>
+	public function get_fills() : Array<IFill>
 	{
 		var temp : Array<IFill> = [];
 		for(f in fillsArray)
@@ -106,7 +106,7 @@ class IsoPrimitive extends IsoDisplayObject, implements IIsoPrimitive
 		return temp;
 	}
 
-	public function setFills(value : Array<IFill>) : Array<IFill>
+	public function set_fills(value : Array<IFill>) : Array<IFill>
 	{
 		if(value != null)
 			fillsArray = value;
@@ -123,12 +123,12 @@ class IsoPrimitive extends IsoDisplayObject, implements IIsoPrimitive
 		//	MAIN STROKE
 		//////////////////////////////
 
-	public function getStroke() : IStroke
+	public function get_stroke() : IStroke
 	{
 		return strokes[0];
 	}
 
-	public function setStroke(value : IStroke) : IStroke
+	public function set_stroke(value : IStroke) : IStroke
 	{
 		strokes = [value, value, value, value, value, value];
 		return value;
@@ -137,7 +137,7 @@ class IsoPrimitive extends IsoDisplayObject, implements IIsoPrimitive
 		//	STROKES
 		//////////////////////////////
 
-	public function getStrokes() : Array<IStroke>
+	public function get_strokes() : Array<IStroke>
 	{
 		var temp : Array<IStroke> = [];
 		for(s in edgesArray)
@@ -146,7 +146,7 @@ class IsoPrimitive extends IsoDisplayObject, implements IIsoPrimitive
 		return temp;
 	}
 
-	public function setStrokes(value : Array<IStroke>) : Array<IStroke>
+	public function set_strokes(value : Array<IStroke>) : Array<IStroke>
 	{
 		if(value != null)
 			edgesArray = (value)
@@ -221,7 +221,7 @@ class IsoPrimitive extends IsoDisplayObject, implements IIsoPrimitive
 		}
 	}
 
-	override public function getIsInvalidated() : Bool
+	override public function get_isInvalidated() : Bool
 	{
 		return (bSizeInvalidated || bPositionInvalidated || bSytlesInvalidated);
 	}

@@ -10,65 +10,65 @@ import as3isolib.geom.Pt;
 
 class SceneBounds implements IBounds
 {
-	public var volume(getVolume, never) : Float;
-	public var width(getWidth, never) : Float;
-	public var length(getLength, never) : Float;
-	public var height(getHeight, never) : Float;
-	public var left(getLeft, never) : Float;
-	public var right(getRight, never) : Float;
-	public var back(getBack, never) : Float;
-	public var front(getFront, never) : Float;
-	public var bottom(getBottom, never) : Float;
-	public var top(getTop, never) : Float;
-	public var centerPt(getCenterPt, never) : Pt;
-	public var excludeAnimatedChildren(getExcludeAnimatedChildren, setExcludeAnimatedChildren) : Bool;
-	public function getVolume() : Float
+	public var volume(get_volume, never) : Float;
+	public var width(get_width, never) : Float;
+	public var length(get_length, never) : Float;
+	public var height(get_height, never) : Float;
+	public var left(get_left, never) : Float;
+	public var right(get_right, never) : Float;
+	public var back(get_back, never) : Float;
+	public var front(get_front, never) : Float;
+	public var bottom(get_bottom, never) : Float;
+	public var top(get_top, never) : Float;
+	public var centerPt(get_centerPt, never) : Pt;
+	public var excludeAnimatedChildren(get_excludeAnimatedChildren, set_excludeAnimatedChildren) : Bool;
+	public function get_volume() : Float
 	{
 		return width * length * height;
 	}
-	public function getWidth() : Float
+	public function get_width() : Float
 	{
 		return _right - _left;
 	}
-	public function getLength() : Float
+	public function get_length() : Float
 	{
 		return _front - _back;
 	}
-	public function getHeight() : Float
+	public function get_height() : Float
 	{
 		return _top - _bottom;
 	}
 	var _left : Float;
-	public function getLeft() : Float
+	public function get_left() : Float
 	{
 		return _left;
 	}
 	var _right : Float;
-	public function getRight() : Float
+	public function get_right() : Float
 	{
 		return _right;
 	}
 	var _back : Float;
-	public function getBack() : Float
+	public function get_back() : Float
 	{
 		return _back;
 	}
 	var _front : Float;
-	public function getFront() : Float
+	public function get_front() : Float
 	{
 		return _front;
 	}
 	var _bottom : Float;
-	public function getBottom() : Float
+	public function get_bottom() : Float
 	{
 		return _bottom;
 	}
 	var _top : Float;
-	public function getTop() : Float
+	public function get_top() : Float
 	{
 		return _top;
 	}
-	public function getCenterPt() : Pt
+	public function get_centerPt() : Pt
 	{
 		var pt : Pt = new Pt();
 		pt.x = (_right - _left) / 2;
@@ -76,7 +76,7 @@ class SceneBounds implements IBounds
 		pt.z = (_top - _bottom) / 2;
 		return pt;
 	}
-	public function getPts() : Array<Pt>
+	public function get_pts() : Array<Pt>
 	{
 		var a : Array<Pt> = [];
 		a.push(new Pt(_left, _back, _bottom));
@@ -115,11 +115,11 @@ class SceneBounds implements IBounds
 		calculateBounds();
 	}
 	var excludeAnimated : Bool;
-	public function getExcludeAnimatedChildren() : Bool
+	public function get_excludeAnimatedChildren() : Bool
 	{
 		return excludeAnimated;
 	}
-	public function setExcludeAnimatedChildren(value : Bool) : Bool
+	public function set_excludeAnimatedChildren(value : Bool) : Bool
 	{
 		excludeAnimated = value;
 		calculateBounds();

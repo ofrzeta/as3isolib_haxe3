@@ -15,7 +15,7 @@ import as3isolib.display.renderers.SimpleSceneLayoutRenderer;
 import as3isolib.display.scene.IIsoScene;
 import flash.display.DisplayObjectContainer;
 
-class IsoGroup extends IsoDisplayObject, implements IIsoScene
+class IsoGroup extends IsoDisplayObject implements IIsoScene
 {
 	public var hostContainer(getHostContainer, setHostContainer) : DisplayObjectContainer;
 	public var invalidatedChildren(getInvalidatedChildren, none) : Array<Dynamic>;
