@@ -339,12 +339,12 @@ class IsoView extends Sprite implements IIsoView
 		return _h;
 	}
 */
-	override public function get_width () : Float
+	#if neko override #end public function get_width () : Float
 	{
 		return _w;
 	}
 
-	override public function get_height () : Float
+	#if neko override #end public function get_height () : Float
 	{
 		return _h;
 	}
