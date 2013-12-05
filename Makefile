@@ -29,26 +29,26 @@ s99:
 	make -C samples/99-RenderTest/ -f ../../MakefileSample ${TARGET}
 
 s01-clean:
-	rm -rf samples/01-Box/bin/${TARGET}
+	rm -rf samples/01-Box/bin/
 
 s02-clean:
-	rm -rf samples/02-Depth/bin/${TARGET}
+	rm -rf samples/02-Depth/bin/
 
 s03-clean:
-	rm -rf samples/03-Styling/bin/${TARGET}
+	rm -rf samples/03-Styling/bin/
 
 s04-clean:
-	rm -rf samples/04-Sprites/bin/${TARGET}
+	rm -rf samples/04-Sprites/bin/
 
 s05-clean:
-	rm -rf samples/05-View/bin/${TARGET}
+	rm -rf samples/05-View/bin/
 
 s06-clean:
-	rm -rf samples/06-SceneRenderers/bin/${TARGET}
+	rm -rf samples/06-SceneRenderers/bin/
 
 s07-clean:
-	rm -rf samples/07-Animation/bin/${TARGET}
+	rm -rf samples/07-Animation/bin/
 
 s99-clean:
-	rm -rf samples/99-RenderTest/bin/${TARGET}
+	rm -rf samples/99-RenderTest/bin/
 
