@@ -198,7 +198,6 @@ class IsoScene extends IsoContainer implements IIsoScene
 				mainContainer.graphics.clear();
 				for(factory in styleRendererFactories)
 				{
-					trace(factory);
 					sceneRenderer = factory.newInstance();
 					if(sceneRenderer != null)  {
 						sceneRenderer.renderScene(this);
