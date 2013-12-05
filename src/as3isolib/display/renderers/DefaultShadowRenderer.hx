@@ -57,4 +57,9 @@ class DefaultShadowRenderer implements ISceneRenderer
 		pt = IsoMath.isoToScreen(new Pt(b.left, b.back, 0));
 		g.lineTo(pt.x, pt.y);
 	}
+
+	public function new() {
+		//  constructor needed for Type.createInstance() call in as3isolib/core/ClassFactory.hx
+	}
+
 }

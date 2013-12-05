@@ -29,8 +29,7 @@ class IsoApplication extends Sprite
 		
 		var factory = new ClassFactory(DefaultShadowRenderer);
 		factory.properties = {shadowColor:0x000000, shadowAlpha:0.15, drawAll:true};
-		scene.styleRenderers = cast [factory];
-		
+		scene.set_styleRenderers([factory]);
 		scene.render();
 		
 		var view:IsoView = new IsoView();

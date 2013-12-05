@@ -28,7 +28,7 @@ class IsoScene extends IsoContainer implements IIsoScene
 	public var hostContainer(get_hostContainer, set_hostContainer) : DisplayObjectContainer;
 	public var invalidatedChildren(get_invalidatedChildren, never) : Array<IIsoContainer>;
 	public var layoutRenderer(get_layoutRenderer, set_layoutRenderer) : Dynamic;
-	public var styleRenderers(get_styleRenderers, set_styleRenderers) : Iterable <ISceneLayoutRenderer>;
+	public var styleRenderers: Array<IFactory>;
 
 	var _isoBounds : IBounds;
 	public function get_isoBounds() : IBounds
@@ -101,7 +101,7 @@ class IsoScene extends IsoContainer implements IIsoScene
 	{
 		var child : INode;
 		for(child in children)
-			child.removeEventListener(IsoEvent.INVALIDATE, child_invalidateHandler);
+		child.removeEventListener(IsoEvent.INVALIDATE, child_invalidateHandler);
 		super.removeAllChildren();
 		bIsInvalidated = true;
 	}
@@ -110,7 +110,7 @@ class IsoScene extends IsoContainer implements IIsoScene
 	{
 		var child = evt.target;
 		if(invalidatedChildrenArray.indexOf(child) == -1)
-			invalidatedChildrenArray.push(child);
+		invalidatedChildrenArray.push(child);
 		bIsInvalidated = true;
 	}
 
@@ -133,29 +133,41 @@ class IsoScene extends IsoContainer implements IIsoScene
 		}
 		if(value && layoutObject != value) 
 		{
-			if(Std.is(value, IFactory)) bLayoutIsFactory = true;
-			else if(Std.is(value,ISceneLayoutRenderer)) bLayoutIsFactory = false;
-			else throw new Error("value for layoutRenderer is not of type IFactory or ISceneLayoutRenderer");
+			if(Std.is(value, IFactory))
+			bLayoutIsFactory = true;
+			else if(Std.is(value,ISceneLayoutRenderer))
+			bLayoutIsFactory = false;
+			else 
+			throw new Error("value for layoutRenderer is not of type IFactory or ISceneLayoutRenderer");
 			layoutObject = value;
 			bIsInvalidated = true;
 		}
-                return 0;
+		return 0;
 	}
 
 	public var stylingEnabled : Bool;
-	var styleRendererFactories : Iterable <ISceneLayoutRenderer>;
+	var styleRendererFactories : Array <IFactory>;
 
-	public function get_styleRenderers() : Iterable <ISceneLayoutRenderer>
+	public function get_styleRenderers() : Array <IFactory>
 	{
-		return styleRendererFactories;
+		var temp:Array<IFactory> = [];
+		var factory:IFactory;
+		for (factory in styleRendererFactories)
+		temp.push(factory);
+
+		return temp;
 	}
 
-	public function set_styleRenderers(value : Iterable <ISceneLayoutRenderer>) : Iterable <ISceneLayoutRenderer>
+	public function set_styleRenderers(value : Array<IFactory>): Void
 	{
-		if(value != null) styleRendererFactories = value;
-		else styleRendererFactories = null;
+		if (value !=null) {
+			styleRendererFactories = value;
+		}
+
+		else {
+			styleRendererFactories = null;
+		}
 		bIsInvalidated = true;
-		return value;
 	}
 
 	public function invalidateScene() : Void
@@ -172,19 +184,25 @@ class IsoScene extends IsoContainer implements IIsoScene
 			{
 				var sceneLayoutRenderer : ISceneLayoutRenderer;
 				if(bLayoutIsFactory) 
-					sceneLayoutRenderer = (cast(layoutObject,IFactory)).newInstance();
+				   sceneLayoutRenderer = (cast(layoutObject,IFactory)).newInstance();
 				else 
-					sceneLayoutRenderer = cast layoutObject;
+				   sceneLayoutRenderer = cast layoutObject;
 				if(sceneLayoutRenderer != null)
-					sceneLayoutRenderer.renderScene(this);
+				   sceneLayoutRenderer.renderScene(this);
 			}
+
+			var factory:IFactory;
+			var sceneRenderer:ISceneRenderer;
 			if(stylingEnabled && !Lambda.empty (styleRendererFactories))
 			{
 				mainContainer.graphics.clear();
-				for(sceneRenderer in styleRendererFactories)
+				for(factory in styleRendererFactories)
 				{
-					if(sceneRenderer != null)
+					trace(factory);
+					sceneRenderer = factory.newInstance();
+					if(sceneRenderer != null)  {
 						sceneRenderer.renderScene(this);
+					}
 				}
 			}
 			bIsInvalidated = false;
@@ -204,12 +222,11 @@ class IsoScene extends IsoContainer implements IIsoScene
 
 	public function new()
 	{
+		super();
 		invalidatedChildrenArray = [];
 		layoutEnabled = true;
 		bLayoutIsFactory = true;
 		stylingEnabled = true;
-		styleRendererFactories = new Array<ISceneLayoutRenderer>();
-		super();
 		layoutObject = new ClassFactory(DefaultSceneLayoutRenderer);
 	}
 }
